@@ -7,6 +7,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.HashSet;
 import java.util.stream.Stream;
 
@@ -41,6 +43,13 @@ public class MapParser {
 
         return new MapElements(elements, maxColumn, row + 1);
     }
+
+    public static Collection<MapElements.MapElement> filter(Collection<MapElements.MapElement> elements, Predicate<String> filterFunc) {
+        return elements.stream()
+                .filter(element -> filterFunc.test(element.icon))
+                .collect(Collectors.toSet());
+    }
+
     private static String readFile(String filePath){
         StringBuilder contentBuilder = new StringBuilder();
         if (filePath.length()>0) {

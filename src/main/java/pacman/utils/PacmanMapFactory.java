@@ -9,6 +9,8 @@ import pacman.core.elements.ghosts.*;
 import pacman.core.elements.*;
 import pacman.core.terminal.Keyboard;
 
+import static pacman.utils.MapParser.filter;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.HashSet;
@@ -53,22 +55,22 @@ public class PacmanMapFactory {
       Collection<Ghost> ghosts = new HashSet<>();
       Iterator<Class<? extends Ghost>> ghostClasses = ghostCharacterClasses.iterator();
 
-      addElements(mapElements.walls, mapElement -> new Wall(mapElement.location, mapElement.icon), map);
+      addElements(filter(mapElements.elements, Wall::isWall), mapElement -> new Wall(mapElement.location, mapElement.icon), map);
 
-      Pacman pacman = newPacman(mapElements, map, status);
+      Pacman pacman = newPacman(filter(mapElements.elements, Pacman::isPacman), map, status);
       terminal.addKeyHandler(pacman);
 
-      addElements(mapElements.gates, mapElement -> new Gate(mapElement.location), map);
-      addElements(mapElements.tunnels, mapElement -> new Tunnel(mapElement.location), map);
-      addElements(mapElements.pills, mapElement -> new Pill(mapElement.location, map, status), map);
-      addElements(mapElements.ghosts, mapElement -> newGhost(ghostClasses.next(), mapElement.location, mapElement.icon, map, pacman, ghosts), map);
-      addElements(mapElements.powerPills, mapElement -> new PowerPill(mapElement.location, map, status, ghosts), map);
+      addElements(filter(mapElements.elements, Gate::isGate), mapElement -> new Gate(mapElement.location), map);
+      addElements(filter(mapElements.elements, Tunnel::isTunnel), mapElement -> new Tunnel(mapElement.location), map);
+      addElements(filter(mapElements.elements, Pill::isPill), mapElement -> new Pill(mapElement.location, map, status), map);
+      addElements(filter(mapElements.elements, Ghost::isGhost), mapElement -> newGhost(ghostClasses.next(), mapElement.location, mapElement.icon, map, pacman, ghosts), map);
+      addElements(filter(mapElements.elements, PowerPill::isPowerPill), mapElement -> new PowerPill(mapElement.location, map, status, ghosts), map);
   }
 
-  private static Pacman newPacman(MapElements mapElements, PacmanMap map, PlayerStatus status) {
+  private static Pacman newPacman(Collection<MapElements.MapElement> elements, PacmanMap map, PlayerStatus status) {
     Pacman pacman;
-    if (!mapElements.pacman.isEmpty()) {
-      MapElements.MapElement pacmanElement = mapElements.pacman.iterator().next();
+    if (!elements.isEmpty()) {
+      MapElements.MapElement pacmanElement = elements.iterator().next();
       pacman = new Pacman(pacmanElement.location, pacmanElement.icon, map, status);
       map.addElement(pacman);
     } else {
