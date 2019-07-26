@@ -152,18 +152,14 @@ public class Ghost extends CollidableElement implements Tickable, CollisionEvent
 
     protected void chooseNextLocation() {
         Collection<Direction> options = gatherOptions();
-        Comparator<Direction> distance = new Comparator<Direction>() {
-            @Override
-            public int compare(Direction o1, Direction o2) {
-                Location target = behaviour.targetLocation(getLocation());
-                Location option1 = map.nextLocation(getLocation(), o1.movement());
-                Location option2 = map.nextLocation(getLocation(), o2.movement());
-                int distance = (int) round(option1.distance(target) - option2.distance(target));
-                return max(-1, min(1, distance));
-            }
+        Comparator<Direction> distance = (a, b) -> {
+            Location target = behaviour.targetLocation(getLocation());
+            Location option1 = map.nextLocation(getLocation(), a.movement());
+            Location option2 = map.nextLocation(getLocation(), b.movement());
+            int dist = (int) round(option1.distance(target) - option2.distance(target));
+            return max(-1, min(1, dist));
         };
-
-        direction = (options.isEmpty()) ? direction.turnBack() : options.stream().min(distance).get();
+        direction = options.stream().min(distance).orElse(direction.turnBack());
         if (canMoveTo(map.nextLocation(getLocation(), direction.movement()))) {
             move();
         }

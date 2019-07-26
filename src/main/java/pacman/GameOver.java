@@ -15,8 +15,8 @@ public class GameOver implements Renderable {
 
     public GameOver(PacmanMap map) {
         this.map = map;
-        midPtX = (int) map.getColumns() / 2;
-        midPtY = (int) Math.floor( map.getRows() / 2 );
+        midPtX = (int) Math.floor( map.getColumns() / 2.0);
+        midPtY = (int) Math.floor( map.getRows() / 2.0 );
     }
 
     public Collection<GameElement> elements() {

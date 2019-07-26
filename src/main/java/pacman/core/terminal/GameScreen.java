@@ -1,5 +1,6 @@
 package pacman.core.terminal;
 
+import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -34,6 +35,7 @@ import pacman.core.elements.GameElement;
 import pacman.core.Location;
 
 public class GameScreen implements GameTerminal, Runnable {
+    private static final Logger log = Logger.getLogger(GameScreen.class);
     private Screen screen;
     private SwingTerminalFrame terminal;
     private Thread listener;
@@ -86,17 +88,17 @@ public class GameScreen implements GameTerminal, Runnable {
     }
 
     public GameScreen(InputStream in, OutputStream out, int rows, int cols) throws IOException {
-        Terminal terminal = new DefaultTerminalFactory(out, in, Charset.defaultCharset())
+        Terminal headless = new DefaultTerminalFactory(out, in, Charset.defaultCharset())
                     .setInitialTerminalSize(new TerminalSize(cols,rows))
                     .createTerminal();
-        createScreen(terminal);
+        createScreen(headless);
     }
 
     protected void createScreen(Terminal terminal) {
         try {
             screen = new TerminalScreen(terminal, DEFAULT);
         } catch (IOException e) {
-            System.out.println("Failed to create screen!");
+            log.error("Failed to create screen!", e);
             System.exit(-1);
         }
         listener = new Thread(this);
@@ -133,7 +135,7 @@ public class GameScreen implements GameTerminal, Runnable {
             screen.clear();
         }
         catch (IOException e) {
-            System.out.println("Failed to open terminal!");
+            log.error("Failed to open screen!", e);
             System.exit(-1);
         }
         if (listener != null) {
@@ -150,7 +152,7 @@ public class GameScreen implements GameTerminal, Runnable {
             screen.stopScreen();
         }
         catch (IOException e) {
-            System.out.println("Failed to close terminal!");
+            log.error("Failed to close screen!", e);
             System.exit(-1);
         }
     }
@@ -164,7 +166,7 @@ public class GameScreen implements GameTerminal, Runnable {
             screen.refresh();
         }
         catch (IOException e) {
-            System.out.println("Failed to refresh terminal!");
+            log.error("Failed to refresh screen!", e);
             System.exit(-1);
         }
     }
@@ -186,7 +188,7 @@ public class GameScreen implements GameTerminal, Runnable {
             }
         }
         catch (IOException e) {
-            System.out.println("Failed to get input");
+            log.error("Failed to get input for screen!", e);
             System.exit(-1);
         }
     }
