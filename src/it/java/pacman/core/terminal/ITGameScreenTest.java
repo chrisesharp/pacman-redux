@@ -4,7 +4,6 @@ import pacman.core.elements.GameElement;
 import pacman.core.elements.TextElement;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import org.junit.Ignore;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 
 import pacman.core.*;
 
-public class GameScreenTest {
+public class ITGameScreenTest {
     class MockGame implements GameKeyHandler {
         KeyEvent key = KeyEvent.DOWN;
 
@@ -22,7 +21,6 @@ public class GameScreenTest {
         }
       }
 
-    @Ignore
     @Test
     public void testOpenTerminal() {
         ByteArrayInputStream input = new ByteArrayInputStream("a".getBytes());
@@ -46,7 +44,6 @@ public class GameScreenTest {
         assertEquals("World", display[3].substring(0, 5));
     }
 
-    @Ignore
     @Test
     public void testTerminalKeypress() {
         ByteArrayInputStream input = new ByteArrayInputStream("a".getBytes());

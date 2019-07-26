@@ -17,21 +17,21 @@ import java.util.Collection;
 
 public class GameMapTest {  
   @Test
-  public void test_bad_file_returns_empty_string() {
+  public void testBadFileReturnsEmptyString() {
     PacmanMapFactory factory = new PacmanMapFactory(MapParser.parse("bad-file"), null, new MockTerminal());
     PacmanMap map = factory.createMap();
     assertEquals(0, map.elements().size());
   }
   
   @Test
-  public void test_no_file_returns_empty_string() {
+  public void testNoFileReturnsEmptyString() {
     PacmanMapFactory factory = new PacmanMapFactory(MapParser.parse(""), null, new MockTerminal());
     PacmanMap map = factory.createMap();
     assertEquals(0, map.elements().size());
   }
   
   @Test
-  public void test_dimensions_map() {
+  public void testDimensionsOfMap() {
     URL fileToRead = GameMapTest.class.getResource("/data/hello.txt");
     PacmanMapFactory factory = new PacmanMapFactory(MapParser.parse(fileToRead.getPath()), null, new MockTerminal());
     PacmanMap level = factory.createMap();
@@ -39,7 +39,7 @@ public class GameMapTest {
   }
 
   @Test
-  public void test_get_two_elements() {
+  public void testGetTwoElements() {
     PacmanMap level = new PacmanMap();
     Location loc = new Location(1,1);
     Pacman pacman = new Pacman(loc, null, level, null);
@@ -50,7 +50,7 @@ public class GameMapTest {
   }
 
   @Test
-  public void test_get_two_out_of_three_elements() {
+  public void testGetTwoOutOfThreeElements() {
     PacmanMap level = new PacmanMap();
     Location loc = new Location(1,1);
     Pacman pacman = new Pacman(loc, null, level, null);
@@ -63,7 +63,7 @@ public class GameMapTest {
   }
 
   @Test
-  public void test_get_doesnt_get_removed_elements() {
+  public void testGetDoesntGetRemovedElements() {
     PacmanMap level = new PacmanMap();
     Location loc = new Location(1,1);
     Pacman pacman = new Pacman(loc, null, level, null);

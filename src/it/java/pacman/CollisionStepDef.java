@@ -44,7 +44,7 @@ public class CollisionStepDef {
     // Given steps
 
     @Given("^a pacman facing \"([^\"]*)\" at (\\d+),(\\d+) with starting position (\\d+),(\\d+)$")
-    public void a_pacman_facing_right_at_with_starting_position(String direction, int x1, int y1, int x0, int y0) {
+    public void a_pacmanFacingRightAtWithStartingPosition(String direction, int x1, int y1, int x0, int y0) {
         String icon;
         switch(direction) {
             case "left":
@@ -71,21 +71,21 @@ public class CollisionStepDef {
     }
 
     @Given("^a pill at (\\d+),(\\d+)$")
-    public void a_pill_at(int x, int y) {
+    public void aPillAt(int x, int y) {
         Location location = new Location(x,y);
         Pill pill = new Pill(location, map, status);
         map.addElement(pill);
     }
 
     @Given("^a power pill at (\\d+),(\\d+)$")
-    public void a_power_pill_at(int x, int y) {
+    public void aPowerPillAt(int x, int y) {
         Location location = new Location(x,y);
         PowerPill pill = new PowerPill(location, map, status, ghosts );
         map.addElement(pill);
     }
 
     @Given("^a ghost at (\\d+),(\\d+) with starting position (\\d+),(\\d+)$")
-    public void a_ghost_at(int x1, int y1, int x0, int y0) {
+    public void aGhostAt(int x1, int y1, int x0, int y0) {
         Location origin = new Location(x0, y0);
         Location location = new Location(x1, y1);
         Ghost ghost = new Ghost(origin, map, new TargetPacmanBehaviour(pacman, Colour.RED, ghosts), new TargetPacmanBehaviour(pacman, Colour.RED, ghosts), new GhostPanicBehaviour());
@@ -95,7 +95,7 @@ public class CollisionStepDef {
     }
 
     @Given("^a ghost at (\\d+),(\\d+)$")
-    public void a_ghost_at(int x, int y) {
+    public void aGhostAt(int x, int y) {
         Location location = new Location(x,y);
         Ghost ghost = new Ghost(location, map, new TargetPacmanBehaviour(pacman, Colour.RED, ghosts), new TargetPacmanBehaviour(pacman, Colour.RED, ghosts), new GhostPanicBehaviour());
         ghosts.add(ghost);
@@ -103,7 +103,7 @@ public class CollisionStepDef {
     }
 
     @Given("^walls at the following places:$")
-    public void walls_at_the_following_places(DataTable data) {
+    public void wallsAtTheFollowingPlaces(DataTable data) {
       List<List<String>> wallList = data.cells(1);
         for (List<String> wallspec: wallList ) {
           String icon = wallspec.get(0);
@@ -115,7 +115,7 @@ public class CollisionStepDef {
     }
 
     @Given("^a starting map:$")
-    public void a_starting_map(String rawMap) throws IOException {
+    public void aStartingMap(String rawMap) throws IOException {
         rawMapFile = File.createTempFile("pacman-test-map", ".txt");
         rawMapFile.deleteOnExit();
         BufferedWriter writer = new BufferedWriter(new FileWriter(rawMapFile.getPath()));
@@ -127,20 +127,20 @@ public class CollisionStepDef {
     // When steps
 
     @When("^we parse the map$")
-    public void we_parse_the_map() {
+    public void weParseTheMap() {
         PacmanMapFactory factory = new PacmanMapFactory(MapParser.parse(rawMapFile.getPath()), status, new MockTerminal());
         map = factory.createMap();
     }
 
     @When("^we advance the game by (\\d+) tick$")
-    public void we_advance_the_game_by_tick(int ticks) {
+    public void weAdvanceTheGameByTick(int ticks) {
         for (int i=0; i < ticks; i++) {
             map.tick();
         }
     }
 
     @When("^we play the game for (\\d+) ticks$")
-    public void we_play_the_game_for_ticks(int ticks) {
+    public void wePlayTheGameForTicks(int ticks) {
         game = new PacmanEngine<>(status, map, new MockTerminal(), null);
         game.FRAMEDELAY = 0;
         game.play(ticks);
@@ -149,7 +149,7 @@ public class CollisionStepDef {
     // Then steps
     
     @Then("^there should be a ghost at (\\d+),(\\d+)$")
-    public void there_should_be_a_ghost_at(int x, int y) {
+    public void thereShouldBeAGhostAt(int x, int y) {
         Collection<GameElement> elements = map.getElements(new Location(x,y));
         for (GameElement element: elements) {
             assertTrue(element instanceof Ghost);
@@ -157,7 +157,7 @@ public class CollisionStepDef {
     }
 
     @Then("^there should be a pill at (\\d+),(\\d+)$")
-    public void there_should_be_a_pill_at(int x, int y) {
+    public void thereShouldBeAPillAt(int x, int y) {
         Collection<GameElement> elements = map.getElements(new Location(x,y));
         for (GameElement element: elements) {
             assertTrue(element instanceof Pill);
@@ -165,7 +165,7 @@ public class CollisionStepDef {
     }
 
     @Then("^there should not be a pill at (\\d+),(\\d+)$")
-    public void there_should_not_be_a_pill_at(int x, int y) {
+    public void thereShouldNotBeAPillAt(int x, int y) {
         Collection<GameElement> elements = map.getElements(new Location(x,y));
         for (GameElement element: elements) {
             assertFalse(element instanceof Pill);
@@ -173,7 +173,7 @@ public class CollisionStepDef {
     }
 
     @Then("^there should not be a pacman at (\\d+),(\\d+)$")
-    public void there_should_not_be_a_pacman_at(int x, int y) {
+    public void thereShouldNotBeAPacmanAt(int x, int y) {
         Collection<GameElement> elements = map.getElements(new Location(x,y));
         for (GameElement element: elements) {
             assertFalse(element instanceof Pacman);
@@ -181,17 +181,17 @@ public class CollisionStepDef {
     }
 
     @Then("^the score should increase by (\\d+) points$")
-    public void the_score_should_increase_by_points(int score) {
+    public void theScoreShouldIncreaseByPoints(int score) {
         assertThat(status.score(), is(initialScore + score));
     }
 
     @Then("^the lives should decrease by (\\d+)$")
-    public void the_lives_should_decrease_by(int lives) {
+    public void theLivesShouldDecreaseBy(int lives) {
         assertThat(status.lives(), is(initialLives - lives));
     }
 
     @Then("^there should be a calm ghost at (\\d+),(\\d+)$")
-    public void there_should_be_a_calm_ghost_at(int x, int y) {
+    public void thereShouldBeACalmGhostAt(int x, int y) {
         Location loc = new Location(x,y);
         Collection<GameElement> elements = map.getElements(loc);
         for (GameElement element: elements) {
@@ -203,7 +203,7 @@ public class CollisionStepDef {
     }
 
     @Then("^there should be a panicked ghost at (\\d+),(\\d+)$")
-    public void there_should_be_a_panicked_ghost_at(int x, int y) {
+    public void thereShouldBeAPanickedGhostAt(int x, int y) {
         Collection<GameElement> elements = map.getElements(new Location(x,y));
         for (GameElement element: elements) {
             if (element instanceof Ghost) {
@@ -214,7 +214,7 @@ public class CollisionStepDef {
     }
 
     @Then("^the level should be over$")
-    public void the_level_should_be_over() {
+    public void theLevelShouldBeOver() {
         assertTrue(status.levelOver());
     }
 }

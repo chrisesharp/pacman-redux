@@ -29,7 +29,7 @@ public class IntegrationStepDef {
     // Given steps
 
     @Given("^a pacman game using the file \"([^\"]*)\"$")
-    public void a_pacman_game_using_the_file(String filename) {
+    public void aPacmanGameUsingTheFile(String filename) {
         URL fileToRead = IntegrationStepDef.class.getResource("/data/" + filename);
         game = new PacmanGame(fileToRead.getPath(), in, gameOutput);
 
@@ -38,14 +38,14 @@ public class IntegrationStepDef {
     // When steps
 
     @When("^we run the game for (\\d+) ticks$")
-    public void we_run_the_game_for_ticks(int ticks) {
+    public void weRunTheGameForTicks(int ticks) {
         game.run(ticks);
     }
     
     // Then steps
 
     @Then("^the output should be:$")
-    public void the_output_should_be(String expected) {
+    public void theOutputShouldBe(String expected) {
         assertThat(strippedGameOutput(), is(expected));
     }
 
