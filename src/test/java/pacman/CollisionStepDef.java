@@ -142,7 +142,7 @@ public class CollisionStepDef {
     @When("^we play the game for (\\d+) ticks$")
     public void we_play_the_game_for_ticks(int ticks) {
         game = new PacmanEngine<>(status, map, new MockTerminal(), null);
-        game.FRAME_DELAY = 0;
+        game.FRAMEDELAY = 0;
         game.play(ticks);
     }
     

@@ -1,10 +1,12 @@
 package pacman.utils;
 
+import org.apache.log4j.Logger;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 
 public class ArgParser {
+  private static final Logger log = Logger.getLogger(ArgParser.class);
   @Option(name="-f", aliases="--file", usage="Fully qualified path and name of level map txt file.")  
   private String fileName;   
   
@@ -16,7 +18,7 @@ public class ArgParser {
       try {
           parser.parseArgument(args);
       } catch (CmdLineException e) {
-          System.err.println(e.getMessage());
+          log.error(e.getMessage());
       }
   }
   

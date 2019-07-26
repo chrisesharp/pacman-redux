@@ -24,7 +24,7 @@ public class PacmanMapFactory {
   private final PacmanStatus status;
   private final Keyboard terminal;
 
-  private static final List<Class<? extends Ghost>> ghostCharacterClasses = new ArrayList<Class<? extends Ghost>> (
+  private static final List<Class<? extends Ghost>> ghostCharacterClasses = new ArrayList<> (
     Arrays.asList(
       Blinky.class,
       Pinky.class,
@@ -67,7 +67,7 @@ public class PacmanMapFactory {
 
   private static Pacman newPacman(MapElements mapElements, PacmanMap map, PlayerStatus status) {
     Pacman pacman;
-    if (mapElements.pacman.size() > 0) {
+    if (!mapElements.pacman.isEmpty()) {
       MapElements.MapElement pacmanElement = mapElements.pacman.iterator().next();
       pacman = new Pacman(pacmanElement.location, pacmanElement.icon, map, status);
       map.addElement(pacman);
@@ -78,7 +78,7 @@ public class PacmanMapFactory {
   }
 
   private static Ghost newGhost(Class<? extends Ghost> ghostClass, Location location, String icon, GameMap map, Pacman pacman, Collection<Ghost> ghosts) {
-        Ghost ghost = null;
+        Ghost ghost;
         try {
           Constructor<? extends Ghost> constructor = ghostClass.getConstructor(Location.class, String.class, GameMap.class, Pacman.class, Collection.class);
           ghost = constructor.newInstance(
@@ -86,7 +86,7 @@ public class PacmanMapFactory {
           );
           ghosts.add(ghost);
         } catch (Exception e) {
-          System.out.println("Failed to create Ghost! " + e);
+          ghost = null;
         }
         return ghost;
   }

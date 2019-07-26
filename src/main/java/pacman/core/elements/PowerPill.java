@@ -7,7 +7,7 @@ import pacman.core.PlayerStatus;
 import java.util.Collection;
 
 public class PowerPill extends Pill {
-    private final int POINTS = 50;
+    private static final int POINTS = 50;
     private static final String ICON = "o";
     private final Collection<Ghost> ghosts;
     

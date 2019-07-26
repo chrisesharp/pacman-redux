@@ -11,7 +11,7 @@ public class PacmanEngine <S extends Renderable & PlayerStatus, M extends Render
   private final S status;
   private final GameTerminal terminal;
   private final Renderable gameOverScreen;
-  protected int FRAME_DELAY = 150;
+  protected int FRAMEDELAY = 120;
 
   public PacmanEngine(S status, M map, GameTerminal terminal, Renderable gameOverScreen) {
     this.status = status;
@@ -28,7 +28,7 @@ public class PacmanEngine <S extends Renderable & PlayerStatus, M extends Render
         map.reset();
       }
       map.tick();
-      pause(FRAME_DELAY);
+      pause(FRAMEDELAY);
     }
     endGame();
   }
@@ -43,7 +43,7 @@ public class PacmanEngine <S extends Renderable & PlayerStatus, M extends Render
 
   private void endGame() {
     terminal.display(status, gameOverScreen);
-    pause(FRAME_DELAY * 15);
+    pause(FRAMEDELAY * 15);
     terminal.stop();
   }
 }

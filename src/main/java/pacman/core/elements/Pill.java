@@ -8,7 +8,7 @@ import pacman.core.GameMap;
 import pacman.core.PlayerStatus;
 
 public class Pill extends CollidableElement implements CollisionEvent {
-    private final int POINTS = 10;
+    private static final int POINTS = 10;
     private static final String ICON = ".";
     protected final GameMap map;
     protected final PlayerStatus status;

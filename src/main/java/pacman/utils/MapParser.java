@@ -13,7 +13,10 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.log4j.Logger;
+
 public class MapParser {
+    private static final Logger log = Logger.getLogger(MapParser.class);
     private MapParser() {
         // hide implicit constructor
     }
@@ -60,7 +63,7 @@ public class MapParser {
             }
             catch (IOException e)
             {
-                System.err.println(e);
+                log.error(e);
             }
         }
         return contentBuilder.toString().trim();

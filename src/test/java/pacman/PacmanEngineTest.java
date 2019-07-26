@@ -108,7 +108,7 @@ public class PacmanEngineTest {
         PacmanMap map = new PacmanMap();
         Renderable mockScreen = null;
         PacmanEngine<MockStatus,PacmanMap> engine = new PacmanEngine<>(status, map, terminal, mockScreen);
-        engine.FRAME_DELAY = 0;
+        engine.FRAMEDELAY = 0;
         engine.play(3);
         assertTrue(terminal.started);
         assertTrue(terminal.stopped);
@@ -123,7 +123,7 @@ public class PacmanEngineTest {
         PacmanMap map = new PacmanMap();
         Renderable mockScreen = null;
         PacmanEngine<MockStatus,PacmanMap> engine = new PacmanEngine<>(status, map, terminal, mockScreen);
-        engine.FRAME_DELAY = 0;
+        engine.FRAMEDELAY = 0;
         engine.play(3);
         assertTrue(terminal.started);
         assertTrue(terminal.stopped);

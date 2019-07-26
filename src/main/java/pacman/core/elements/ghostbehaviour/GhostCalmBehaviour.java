@@ -18,7 +18,7 @@ public abstract class GhostCalmBehaviour implements GhostBehaviour {
 
     public void collide(Ghost ghost, Pacman pacman) {
         pacman.kill();
-        allGhosts.stream().forEach((Ghost each) -> each.resetLocation());
+        allGhosts.stream().forEach(Ghost::resetLocation);
     }
 
     public Colour getColour() {

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.log4j.Logger;
+
 import pacman.core.Renderable;
 import pacman.core.terminal.GameScreen;
 import pacman.core.terminal.GameTerminal;
@@ -14,6 +16,7 @@ import pacman.utils.MapParser;
 import pacman.utils.PacmanMapFactory;
 
 public final class PacmanGame {
+    private static final Logger log = Logger.getLogger(PacmanGame.class);
     private PacmanEngine<PacmanStatus,PacmanMap> theGame;
     private GameTerminal terminal;
 
@@ -30,7 +33,7 @@ public final class PacmanGame {
             try {
                 terminal = new GameScreen(in, out, mapElements.height + 1, mapElements.width);
             } catch (IOException e) {
-                System.err.println(e);
+                log.error(e);
                 System.exit(-1);
             }
         }
