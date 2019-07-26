@@ -2,3 +2,8 @@ language: java
 jdk: oraclejdk8
 script:
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install
+addons:
+  sonarcloud:
+    organization: "chrisesharp-github"
+    token:
+      secure: "cPcAZxbAUZOM065uVwZP5OEjrz++9shrMmgnzKnpbnGGOboqnU80+hBH0+ph0nQGo/OTsnvG+cyWWwxfFPZ1PEDTgAjJ2+Mz02zK6MK0oXJLqQ6gemXoT/jFJvktP/Am/qcNy8TrkeYeZisny/msOBWGPZG6OVCtIfATWXZbHMtG0iUiWxQIdlZfLJO+QAG0KYreVjq+VnqW2prp9lt1xhtvbiq+SOEsAw+Bs+vk+y39YrITiUx8XBIz3A3hAUuk3jGFpVDKe6Zuun30P/qw/HD8FzsqP+xh4Rq60dRUOAhBh1FomI8K3Z94DvsNOLdhjOl5cFpcSlwHfgOTHRInF2efhjeCOJ4G+EJBaA2d5QHQLQtDe0e+tznDktfBIjvddD6O1nwv+ZI/uBEj8exJYvOSa264Yt9EGAK3rCOlb7bNHve+3tZNpYGSU+NHbw181DGnpR2c1v+Ia7rSIqd+wRpWsIAeDsicB2dVcdlZ1jH22Jqhmngyk5DQmVYokngqtnrwQCOBzB1BOuZuRHbbkUz6sC4JzgA8m8PC61rjZ56Pa4n83kd2oPj2sEM0RfNCsnL8XH+QVjjp5OdVnbSnQNnD9DNHkPOjD6DscRO9QakUrNFifn/y/+QTjxs/IWz4w0nsDtXkZfhLiIy5arXpJQ3DG7bjnOfBLX4zoxzR9eg="
