@@ -12,8 +12,9 @@ import pacman.core.Direction;
 
 import java.util.Collection;
 import java.util.Arrays;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Stack;
+import java.util.Deque;
 import java.util.Comparator;
 
 import static java.lang.Math.max;
@@ -37,18 +38,18 @@ public class Ghost extends CollidableElement implements Tickable, CollisionEvent
     }
 
     private static class TimedBehaviour implements GhostBehaviour {
-        private Stack<BehaviourTiming> strategies;
+        private Deque<BehaviourTiming> strategies;
         private GhostBehaviour behaviour;
         private int ticksLeft;
 
         public TimedBehaviour(int totalTicks, GhostBehaviour behaviour) {
-            strategies = new Stack<>();
+            strategies = new ArrayDeque<>();
             this.behaviour = behaviour;
             this.ticksLeft = totalTicks;
         }
 
         public void addBehaviour(int totalTicks, GhostBehaviour behaviour) {
-            this.strategies.push(new BehaviourTiming(ticksLeft, this.behaviour));
+            this.strategies.addFirst(new BehaviourTiming(ticksLeft, this.behaviour));
             this.behaviour = behaviour;
             this.ticksLeft = totalTicks;
         }
@@ -89,7 +90,7 @@ public class Ghost extends CollidableElement implements Tickable, CollisionEvent
         }
 
         public Direction next(Direction curDirection) {
-            BehaviourTiming strategy = strategies.pop();
+            BehaviourTiming strategy = strategies.removeFirst();
             behaviour = strategy.behaviour;
             ticksLeft = strategy.timing;
             return curDirection.turnBack();

@@ -14,7 +14,7 @@ import java.util.Comparator;
 import java.util.Optional;
 import java.util.HashSet;
 import java.util.function.BinaryOperator;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 public class PacmanMap implements Renderable, Tickable, GameMap {
@@ -93,7 +93,7 @@ public class PacmanMap implements Renderable, Tickable, GameMap {
         }
     }
 
-    public Location nextLocation(Location location, Function<Location, Location> movementTransform) {
+    public Location nextLocation(Location location, UnaryOperator<Location> movementTransform) {
         Location newLocation = movementTransform.apply(location);
         return wrapped(newLocation);
     }

@@ -1,7 +1,10 @@
 package pacman.utils;
 
 import pacman.core.Location;
+import pacman.core.elements.*;
 import java.util.Collection;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.Objects;
 
 public class MapElements {
@@ -16,16 +19,22 @@ public class MapElements {
     public final int width;
     public final int height;
 
-    public MapElements(Collection<MapElement> gates, Collection<MapElement> ghosts, Collection<MapElement> pacman, Collection<MapElement> pills, Collection<MapElement> powerPills, Collection<MapElement> tunnels, Collection<MapElement> walls, int width, int height) {
-        this.gates = gates;
-        this.ghosts = ghosts;
-        this.pacman = pacman;
-        this.pills = pills;
-        this.powerPills = powerPills;
-        this.tunnels = tunnels;
-        this.walls = walls;
+    public MapElements(Collection<MapElement> elements, int width, int height) {
+        this.gates = filter(elements, Gate::isGate);
+        this.ghosts = filter(elements, Ghost::isGhost);
+        this.pacman = filter(elements, Pacman::isPacman);
+        this.pills = filter(elements, Pill::isPill);
+        this.powerPills = filter(elements, PowerPill::isPowerPill);
+        this.tunnels = filter(elements, Tunnel::isTunnel);
+        this.walls = filter(elements, Wall::isWall);
         this.width = width;
         this.height = height;
+    }
+
+    private static Collection<MapElements.MapElement> filter(Collection<MapElements.MapElement> elements, Predicate<String> filterFunc) {
+        return elements.stream()
+                .filter(element -> filterFunc.test(element.icon))
+                .collect(Collectors.toSet());
     }
 
     public static class MapElement {

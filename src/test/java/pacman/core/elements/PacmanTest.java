@@ -12,7 +12,7 @@ import pacman.core.terminal.GameKeyHandler;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -52,7 +52,7 @@ public class PacmanTest {
         }
 
         @Override
-        public Location nextLocation(Location location, Function<Location, Location> movementTransform) {
+        public Location nextLocation(Location location, UnaryOperator<Location> movementTransform) {
             Location newLocation = movementTransform.apply(location);
             return newLocation;
         }

@@ -1,6 +1,6 @@
 package pacman.core;
 
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 public enum Direction {
     LEFT(location -> new Location(location.x - 1, location.y)),
@@ -8,10 +8,10 @@ public enum Direction {
     RIGHT(location -> new Location(location.x + 1, location.y)),
     DOWN(location -> new Location(location.x, location.y + 1));
     
-    private Function<Location, Location> movementTransform;
+    private UnaryOperator<Location> movementTransform;
     private static Direction[] vals = values();
     
-    private Direction(Function<Location, Location> movementTransform) {
+    private Direction(UnaryOperator<Location> movementTransform) {
         this.movementTransform = movementTransform;
     }
 
@@ -25,7 +25,7 @@ public enum Direction {
         return vals[(this.ordinal()+2) % vals.length];
     }
 
-    public Function<Location, Location> movement() {
+    public UnaryOperator<Location> movement() {
         return movementTransform;
     }
 }
