@@ -5,25 +5,11 @@ import java.util.Collection;
 import java.util.Objects;
 
 public class MapElements {
-
-    // public final Collection<MapElement> gates;
-    // public final Collection<MapElement> ghosts;
-    // public final Collection<MapElement> pacman;
-    // public final Collection<MapElement> pills;
-    // public final Collection<MapElement> powerPills;
-    // public final Collection<MapElement> tunnels;
     public final Collection<MapElement> elements;
     public final int width;
     public final int height;
 
     public MapElements(Collection<MapElement> elements, int width, int height) {
-        // this.gates = filter(elements, Gate::isGate);
-        // this.ghosts = filter(elements, Ghost::isGhost);
-        // this.pacman = filter(elements, Pacman::isPacman);
-        // this.pills = filter(elements, Pill::isPill);
-        // this.powerPills = filter(elements, PowerPill::isPowerPill);
-        // this.tunnels = filter(elements, Tunnel::isTunnel);
-        // this.walls = filter(elements, Wall::isWall);
         this.elements = elements;
         this.width = width;
         this.height = height;
