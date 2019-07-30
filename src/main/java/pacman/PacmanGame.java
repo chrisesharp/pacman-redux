@@ -25,7 +25,7 @@ public final class PacmanGame {
     }
 
     protected PacmanGame(String filename, InputStream in, OutputStream out) {
-        MapElements mapElements = MapParser.parse(filename);
+        MapElements mapElements = MapParser.parseFile(filename);
         PacmanStatus status = new PacmanStatus(3, 0, mapElements.width);
         if (in == null || out == null) {
             terminal = new GameScreen(mapElements.height + 1, mapElements.width);

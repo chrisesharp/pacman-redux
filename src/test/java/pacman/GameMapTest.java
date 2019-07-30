@@ -18,14 +18,14 @@ import java.util.Collection;
 public class GameMapTest {  
   @Test
   public void testBadFileReturnsEmptyString() {
-    PacmanMapFactory factory = new PacmanMapFactory(MapParser.parse("bad-file"), null, new MockTerminal());
+    PacmanMapFactory factory = new PacmanMapFactory(MapParser.parseFile("bad-file"), null, new MockTerminal());
     PacmanMap map = factory.createMap();
     assertEquals(0, map.elements().size());
   }
   
   @Test
   public void testNoFileReturnsEmptyString() {
-    PacmanMapFactory factory = new PacmanMapFactory(MapParser.parse(""), null, new MockTerminal());
+    PacmanMapFactory factory = new PacmanMapFactory(MapParser.parseFile(""), null, new MockTerminal());
     PacmanMap map = factory.createMap();
     assertEquals(0, map.elements().size());
   }
@@ -33,7 +33,7 @@ public class GameMapTest {
   @Test
   public void testDimensionsOfMap() {
     URL fileToRead = GameMapTest.class.getResource("/data/hello.txt");
-    PacmanMapFactory factory = new PacmanMapFactory(MapParser.parse(fileToRead.getPath()), null, new MockTerminal());
+    PacmanMapFactory factory = new PacmanMapFactory(MapParser.parseFile(fileToRead.getPath()), null, new MockTerminal());
     PacmanMap level = factory.createMap();
     assertEquals(5, level.getColumns());
   }

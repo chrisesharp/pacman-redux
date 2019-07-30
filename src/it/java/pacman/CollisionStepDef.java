@@ -128,7 +128,7 @@ public class CollisionStepDef {
 
     @When("^we parse the map$")
     public void weParseTheMap() {
-        PacmanMapFactory factory = new PacmanMapFactory(MapParser.parse(rawMapFile.getPath()), status, new MockTerminal());
+        PacmanMapFactory factory = new PacmanMapFactory(MapParser.parseFile(rawMapFile.getPath()), status, new MockTerminal());
         map = factory.createMap();
     }
 

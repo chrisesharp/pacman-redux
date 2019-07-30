@@ -20,8 +20,11 @@ public class MapParser {
         // hide implicit constructor
     }
     
-    public static MapElements parse(String filePath) {
-        String map = readFile(filePath);
+    public static MapElements parseFile(String filePath) {
+        return parseString(readFile(filePath));
+    }
+    
+    public static MapElements parseString(String map) {
         Collection<MapElements.MapElement> elements = new HashSet<>();
         int row = 0;
         int column = 0;

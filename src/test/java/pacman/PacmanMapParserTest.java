@@ -7,10 +7,6 @@ import static pacman.utils.MapParser.filter;
 import pacman.core.elements.*;
 import pacman.core.Location;
 
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -21,14 +17,9 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 public class PacmanMapParserTest {
     @Test
     public void mapParserGivesLocationsOfAllGameElementTypes() throws IOException {
-        String inputMapWithAllGameElements = "=WM<>ΛV.o#+-|";
-        File mapFile = File.createTempFile("pacman-test-map", ".txt");
-        mapFile.deleteOnExit();
-        BufferedWriter writer = new BufferedWriter(new FileWriter(mapFile.getPath()));
-        writer.write(inputMapWithAllGameElements);
-        writer.close();
+        String inputMapWithAllGameElements = "=WM<>ΛV.o#+-|\n";
 
-        MapElements mapElements = MapParser.parse(mapFile.getPath());
+        MapElements mapElements = MapParser.parseString(inputMapWithAllGameElements);
 
         assertThat(filter(mapElements.elements, Gate::isGate), hasSize(1));
         assertThat(filter(mapElements.elements, Gate::isGate), containsInAnyOrder(new MapElements.MapElement(new Location(0,0), "=")));
