@@ -17,7 +17,7 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 public class PacmanMapParserTest {
     @Test
     public void mapParserGivesLocationsOfAllGameElementTypes() throws IOException {
-        String inputMapWithAllGameElements = "=WM<>ΛV.o#+-|\n";
+        String inputMapWithAllGameElements = "=WM<>ΛV.o#+-|";
 
         MapElements mapElements = MapParser.parseString(inputMapWithAllGameElements);
 
