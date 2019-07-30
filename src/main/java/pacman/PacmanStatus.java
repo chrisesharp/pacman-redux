@@ -61,7 +61,7 @@ public class PacmanStatus implements PlayerStatus, Renderable, GameKeyHandler {
     public List<GameElement> elements() {
         final String LIVES = ""+lives;
         final String SCORE = ""+score;
-        final int score_pos = columns - LIVES.length() - SCORE.length() + 1;
+        final int score_pos = columns - SCORE.length();
         List<GameElement> elements = new ArrayList<>();
         elements.add(new TextElement(new Location(0, 0), LIVES));
         elements.add(new TextElement(new Location(score_pos, 0), SCORE));
