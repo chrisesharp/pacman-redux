@@ -2,7 +2,6 @@ package pacman.utils;
 
 import pacman.core.Location;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -25,6 +24,7 @@ public class MapParser {
     }
     
     public static MapElements parseString(String map) {
+        map = map.trim();
         Collection<MapElements.MapElement> elements = new HashSet<>();
         int row = 0;
         int column = 0;
@@ -55,18 +55,16 @@ public class MapParser {
 
     private static String readFile(String filePath){
         StringBuilder contentBuilder = new StringBuilder();
-        if (filePath.length()>0) {
-            try {
-                Stream<String> stream = Files.lines(
-                        Paths.get(filePath),
-                        StandardCharsets.UTF_8);
-                stream.forEach(line -> contentBuilder.append(line).append("\n"));
-                stream.close();
-            }
-            catch (IOException e)
-            {
-                log.error(e);
-            }
+        try {
+            Stream<String> stream = Files.lines(
+                    Paths.get(filePath),
+                    StandardCharsets.UTF_8);
+            stream.forEach(line -> contentBuilder.append(line).append("\n"));
+            stream.close();
+        }
+        catch (Exception e)
+        {
+            log.error("Error reading file:" + filePath);
         }
         return contentBuilder.toString().trim();
     }
