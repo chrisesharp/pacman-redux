@@ -15,7 +15,7 @@ import java.util.HashSet;
 public class PacmanStatus implements PlayerStatus, Renderable, GameKeyHandler {
     private int lives;
     private int score;
-    private int columns;
+    private final int columns;
     private boolean gameOver = false;
     private Collection<GameElement> levelResources = new HashSet<>();
 
