@@ -1,3 +1,4 @@
+dist: trust
 language: java
 jdk: oraclejdk8
 script:
