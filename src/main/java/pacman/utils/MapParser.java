@@ -55,12 +55,10 @@ public class MapParser {
 
     private static String readFile(String filePath){
         StringBuilder contentBuilder = new StringBuilder();
-        try {
-            Stream<String> stream = Files.lines(
-                    Paths.get(filePath),
-                    StandardCharsets.UTF_8);
+        try (Stream<String> stream = Files.lines(
+                        Paths.get(filePath).toRealPath(),
+                        StandardCharsets.UTF_8)) {
             stream.forEach(line -> contentBuilder.append(line).append("\n"));
-            stream.close();
         }
         catch (Exception e)
         {
