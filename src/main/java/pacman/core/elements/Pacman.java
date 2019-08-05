@@ -43,7 +43,7 @@ public class Pacman extends CollidableElement implements GameKeyHandler, Tickabl
     public void keyPressed(KeyEvent key) {
         try {
             Direction newDirection = Direction.valueOf(key.name());
-            if (canMoveTo(map.nextLocation(getLocation(), newDirection.movement()))) {
+            if (canMoveTo(map.nextLocation(getLocation(), newDirection))) {
                 this.direction = newDirection;
             }
         } catch (IllegalArgumentException e) {
@@ -52,7 +52,7 @@ public class Pacman extends CollidableElement implements GameKeyHandler, Tickabl
     }
 
     public void tick() {
-        Location nextLocation = map.nextLocation(getLocation(), direction.movement());
+        Location nextLocation = map.nextLocation(getLocation(), direction);
         if (canMoveTo(nextLocation)) {
             this.setLocation(nextLocation);
         }

@@ -10,7 +10,6 @@ import pacman.core.elements.ghostbehaviour.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.function.UnaryOperator;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -50,8 +49,8 @@ public class GhostTest {
         }
 
         @Override
-        public Location nextLocation(Location location, UnaryOperator<Location> movementTransform) {
-            Location newLocation = movementTransform.apply(location);
+        public Location nextLocation(Location location, Direction direction) {
+            Location newLocation = direction.movement().apply(location);
             return newLocation;
         }
 
@@ -153,7 +152,6 @@ public class GhostTest {
         ghost.tick();
 
         assertThat(ghost.getColour(), is(Colour.BLUE));
-        // assertThat(ghost.getLocation(), is(new Location(6, 0)));
     }
 
     @Test

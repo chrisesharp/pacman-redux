@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 
 import pacman.core.Collidable;
 import pacman.core.CollisionEvent;
+import pacman.core.Direction;
 import pacman.core.GameMap;
 import pacman.core.Location;
 import pacman.core.terminal.GameKeyHandler;
@@ -12,7 +13,6 @@ import pacman.core.terminal.GameKeyHandler;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.function.UnaryOperator;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -52,8 +52,8 @@ public class PacmanTest {
         }
 
         @Override
-        public Location nextLocation(Location location, UnaryOperator<Location> movementTransform) {
-            Location newLocation = movementTransform.apply(location);
+        public Location nextLocation(Location location, Direction direction) {
+            Location newLocation = direction.movement().apply(location);
             return newLocation;
         }
 

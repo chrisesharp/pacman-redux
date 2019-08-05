@@ -142,6 +142,6 @@ public class PacmanMapTest {
         GameElement element = new MockElement(new Location(4,4));
         PacmanMap map = new PacmanMap();
         map.addElement(element);
-        assertThat(map.nextLocation(new Location(2,1), Direction.LEFT.movement()), is(new Location(1,1)));
+        assertThat(map.nextLocation(new Location(2,1), Direction.LEFT), is(new Location(1,1)));
     }
 }

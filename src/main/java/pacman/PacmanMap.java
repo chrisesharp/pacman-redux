@@ -4,6 +4,7 @@ import pacman.core.Location;
 import pacman.core.Tickable;
 import pacman.core.Renderable;
 import pacman.core.CollisionEvent;
+import pacman.core.Direction;
 import pacman.core.GameMap;
 
 import pacman.core.elements.GameElement;
@@ -14,7 +15,6 @@ import java.util.Comparator;
 import java.util.Optional;
 import java.util.HashSet;
 import java.util.function.BinaryOperator;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 public class PacmanMap implements Renderable, Tickable, GameMap {
@@ -93,8 +93,8 @@ public class PacmanMap implements Renderable, Tickable, GameMap {
         }
     }
 
-    public Location nextLocation(Location location, UnaryOperator<Location> movementTransform) {
-        Location newLocation = movementTransform.apply(location);
+    public Location nextLocation(Location location, Direction direction) {
+        Location newLocation = direction.movement().apply(location);
         return wrapped(newLocation);
     }
 

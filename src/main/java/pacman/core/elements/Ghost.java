@@ -155,19 +155,19 @@ public class Ghost extends CollidableElement implements Tickable, CollisionEvent
         Collection<Direction> options = gatherOptions();
         Comparator<Direction> distance = (a, b) -> {
             Location target = behaviour.targetLocation(getLocation());
-            Location option1 = map.nextLocation(getLocation(), a.movement());
-            Location option2 = map.nextLocation(getLocation(), b.movement());
+            Location option1 = map.nextLocation(getLocation(), a);
+            Location option2 = map.nextLocation(getLocation(), b);
             int dist = (int) round(option1.distance(target) - option2.distance(target));
             return max(-1, min(1, dist));
         };
         direction = options.stream().min(distance).orElse(direction.turnBack());
-        if (canMoveTo(map.nextLocation(getLocation(), direction.movement()))) {
+        if (canMoveTo(map.nextLocation(getLocation(), direction))) {
             move();
         }
     }
 
     private void move() {
-        setLocation(map.nextLocation(getLocation(), direction.movement()));
+        setLocation(map.nextLocation(getLocation(), direction));
     }
 
     private Collection<Direction> gatherOptions() {
@@ -176,7 +176,7 @@ public class Ghost extends CollidableElement implements Tickable, CollisionEvent
                                                       direction.turnLeft(),
                                                       direction.turnRight());
         for (Direction dir: possibleRoutes) {
-            Location nextLocation = map.nextLocation(getLocation(), dir.movement());
+            Location nextLocation = map.nextLocation(getLocation(), dir);
             if (canMoveTo(nextLocation)) {
                 options.add(dir);
           }
