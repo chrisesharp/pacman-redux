@@ -173,7 +173,7 @@ public class GameScreen implements GameTerminal, Runnable {
 
     public void getKeyPress() {
         try {
-            KeyStroke key = screen.pollInput();
+            KeyStroke key = pollInput();
             if (key != null) {
                 KeyType type = key.getKeyType();
                 KeyEvent event = KEYMAP.get(type);
@@ -191,6 +191,10 @@ public class GameScreen implements GameTerminal, Runnable {
             log.error("Failed to get input for screen!", e);
             System.exit(-1);
         }
+    }
+
+    protected KeyStroke pollInput() throws IOException {
+    	return screen.pollInput();
     }
 
     private int render(int heightOffset, Renderable item) {
