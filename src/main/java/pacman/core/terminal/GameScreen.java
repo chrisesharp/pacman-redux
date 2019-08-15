@@ -37,7 +37,8 @@ import pacman.core.Location;
 public class GameScreen implements GameTerminal, Runnable {
     private static final Logger log = Logger.getLogger(GameScreen.class);
     private Screen screen;
-    private SwingTerminalFrame terminal;
+    private Terminal terminal;
+    private SwingTerminalFrame terminalFrame;
     private Thread listener;
     private volatile boolean running = true;
 
@@ -88,10 +89,10 @@ public class GameScreen implements GameTerminal, Runnable {
     }
 
     public GameScreen(InputStream in, OutputStream out, int rows, int cols) throws IOException {
-        Terminal headless = new DefaultTerminalFactory(out, in, Charset.defaultCharset())
+        terminal = new DefaultTerminalFactory(out, in, Charset.defaultCharset())
                     .setInitialTerminalSize(new TerminalSize(cols,rows))
                     .createTerminal();
-        createScreen(headless);
+        createScreen(terminal);
     }
 
     protected void createScreen(Terminal terminal) {
@@ -129,8 +130,8 @@ public class GameScreen implements GameTerminal, Runnable {
         try {
             screen.startScreen();
             screen.setCursorPosition(null);
-            if (terminal != null) {
-                terminal.setVisible(true);
+            if (terminalFrame != null) {
+                terminalFrame.setVisible(true);
             }
             screen.clear();
         }
@@ -150,6 +151,7 @@ public class GameScreen implements GameTerminal, Runnable {
         }
         try {
             screen.stopScreen();
+            terminal.close();
         }
         catch (IOException e) {
             log.error("Failed to close screen!", e);
@@ -225,7 +227,7 @@ public class GameScreen implements GameTerminal, Runnable {
             x++;
         }
         if (element.playSound()) {
-            terminal.bell();
+            terminalFrame.bell();
         }
     }
 
@@ -235,6 +237,6 @@ public class GameScreen implements GameTerminal, Runnable {
     }
 
     public JFrame getSwingTerminalFrame() {
-        return terminal;
+        return terminalFrame;
     }
 }
