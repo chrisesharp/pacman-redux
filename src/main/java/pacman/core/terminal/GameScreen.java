@@ -130,7 +130,8 @@ public class GameScreen implements GameTerminal, Runnable {
         try {
             screen.startScreen();
             screen.setCursorPosition(null);
-            if (terminalFrame != null) {
+            if (terminal != null && terminal instanceof SwingTerminalFrame) {
+                terminalFrame = (SwingTerminalFrame) terminal;
                 terminalFrame.setVisible(true);
             }
             screen.clear();
@@ -226,7 +227,7 @@ public class GameScreen implements GameTerminal, Runnable {
             screen.setCharacter(x, y, new TextCharacter(c, fg, bg, sgrs.toArray(new SGR[0])));
             x++;
         }
-        if (element.playSound()) {
+        if (element.playSound() && terminalFrame != null) {
             terminalFrame.bell();
         }
     }
