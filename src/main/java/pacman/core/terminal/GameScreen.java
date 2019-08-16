@@ -84,7 +84,8 @@ public class GameScreen implements GameTerminal, Runnable {
     }
 
     public GameScreen(int rows, int cols) {
-        terminal = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(cols,rows)).createSwingTerminal();
+        terminalFrame = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(cols,rows)).createSwingTerminal();
+        terminal = terminalFrame;
         createScreen(terminal);
     }
 
