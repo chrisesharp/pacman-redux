@@ -131,8 +131,7 @@ public class GameScreen implements GameTerminal, Runnable {
         try {
             screen.startScreen();
             screen.setCursorPosition(null);
-            if (terminal instanceof SwingTerminalFrame) {
-                terminalFrame = (SwingTerminalFrame) terminal;
+            if (terminalFrame != null) {
                 terminalFrame.setVisible(true);
             }
             screen.clear();
